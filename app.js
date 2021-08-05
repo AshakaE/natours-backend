@@ -6,6 +6,16 @@ const app = express();
 //Middleware to handle post requests
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log('The Middleware 😂');
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 const tours = JSON.parse(
   fs.readFileSync(
     `${__dirname}/dev-data/data/tours-simple.json`
@@ -24,6 +34,7 @@ const getAllTours = (req, res) => {
 
 const getTour = (req, res) => {
   console.log(req.params);
+  console.log(req.requestTime);
   const id = req.params.id * 1;
   const tour = tours.find((el) => el.id === id);
 
