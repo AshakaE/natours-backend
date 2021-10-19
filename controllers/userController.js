@@ -1,34 +1,45 @@
-exports.getAllUsers = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Undefined',
-  });
-};
+const User = require('../models/userModel');
+// const APIFeatures = require('../utils/apiFeatures');
+const catchAsync = require('../utils/catchAsync');
+// const AppError = require('../utils/appError');
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Undefined',
-  });
-};
+exports.getAllUsers = catchAsync(async (req, res) => {
+  const users = await User.find();
 
-exports.createUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Undefined',
+  // SEND RESPONSE
+  res.status(200).json({
+    status: 'success',
+    results: users.length,
+    data: {
+      users,
+    },
   });
-};
+});
 
-exports.updateUser = (req, res) => {
+exports.getUser = catchAsync(async (req, res) => {
   res.status(500).json({
     status: 'error',
     message: 'Undefined',
   });
-};
+});
 
-exports.deleteUser = (req, res) => {
+exports.createUser = catchAsync(async (req, res) => {
   res.status(500).json({
     status: 'error',
     message: 'Undefined',
   });
-};
+});
+
+exports.updateUser = catchAsync(async (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'Undefined',
+  });
+});
+
+exports.deleteUser = catchAsync(async (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'Undefined',
+  });
+});
