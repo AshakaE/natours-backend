@@ -2,6 +2,7 @@ const User = require('../models/userModel')
 // const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
+const factory = require('./handlerFactory')
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {}
@@ -12,19 +13,6 @@ const filterObj = (obj, ...allowedFields) => {
   })
   return newObj
 }
-
-exports.getAllUsers = catchAsync(async (req, res) => {
-  const users = await User.find()
-
-  // SEND RESPONSE
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users,
-    },
-  })
-})
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
@@ -58,30 +46,17 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   })
 })
 
-exports.getUser = catchAsync(async (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Undefined',
-  })
-})
-
 exports.createUser = catchAsync(async (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'Undefined',
+    message: 'This route is not defined! Please use /signup instead.',
   })
 })
 
-exports.updateUser = catchAsync(async (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Undefined',
-  })
-})
+exports.getUser = factory.getOne(User)
 
-exports.deleteUser = catchAsync(async (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'Undefined',
-  })
-})
+exports.getAllUsers = factory.getAll(User)
+
+exports.updateUser = factory.updateOne(User)
+
+exports.deleteUser = factory.deleteOne(User)
