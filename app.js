@@ -12,6 +12,7 @@ const globalErrorHandler = require('./controllers/errorController')
 const reviewRouter = require('./routes/reviewRoutes')
 const tourRouter = require('./routes/tourRoutes')
 const userRouter = require('./routes/userRoutes')
+const viewRouter = require('./routes/viewRoutes')
 
 const app = express()
 
@@ -78,13 +79,8 @@ app.use((req, res, next) => {
 // app.delete('/api/v1/tours/:id', deleteTour);
 
 // ROUTES
-app.get('/', (req, res) => {
-  res.status(200).render('base', {
-    tour: 'The forest hiker',
-    user: 'Jonas',
-  })
-})
 
+app.use('/', viewRouter)
 app.use('/api/v1/users/', userRouter)
 app.use('/api/v1/tours/', tourRouter)
 app.use('/api/v1/reviews/', reviewRouter)
