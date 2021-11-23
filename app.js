@@ -25,7 +25,8 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Secure HTTP headers
-app.use(helmet())
+// content-security-policy
+app.use(helmet({ contentSecurityPolicy: false }))
 
 //Development loggin
 if (process.env.NODE_ENV === 'development') {
