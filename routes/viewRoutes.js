@@ -6,6 +6,7 @@ const router = express.Router()
 router.get('/', viewsController.getOveriew)
 
 router.get('/tour/:slug', viewsController.getTour)
-// router.get('/details', viewsController.getDetail)
+
+router.get('/login', viewsController.getLoginForm)
 
 module.exports = router
