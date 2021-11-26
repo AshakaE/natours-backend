@@ -20,7 +20,12 @@ router.patch(
 )
 
 router.get('/me', userController.getMe, userController.getUser)
-router.patch('/updateMe', userController.updateMe)
+router.patch(
+  '/updateMe',
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  userController.updateMe
+)
 router.delete('/deleteMe', userController.deleteMe)
 
 //Restrict all routes below middleware to only admin
