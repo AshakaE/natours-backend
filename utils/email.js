@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 const pug = require('pug')
-const htmlToText = require('html-to-text')
+const { convert } = require('html-to-text')
 
 module.exports = class Email {
   constructor(user, url) {
@@ -12,7 +12,14 @@ module.exports = class Email {
 
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
-      return 1
+      return nodemailer.createTransport({
+        host: process.env.MJSMTP,
+        port: process.env.MJPORT,
+        auth: {
+          user: process.env.MJUSERNAME,
+          pass: process.env.MJPASSWORD,
+        },
+      })
     }
     return nodemailer.createTransport({
       host: process.env.HOST,
@@ -25,7 +32,7 @@ module.exports = class Email {
   }
 
   async send(template, subject) {
-    const html = pug.renderFile(`${--dirname}/../views/email/${template}.pug`, {
+    const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
       firstName: this.firstName,
       url: this.url,
       subject,
@@ -36,7 +43,7 @@ module.exports = class Email {
       to: this.to,
       subject,
       html,
-      text: htmlToText(html, {
+      text: convert(html, {
         wordwrap: 130,
       }),
     }
