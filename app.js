@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Secure HTTP headers
 // content-security-policy
-app.use(helmet({ contentSecurityPolicy: false }))
+app.use(helmet())
 
 //Development loggin
 if (process.env.NODE_ENV === 'development') {
