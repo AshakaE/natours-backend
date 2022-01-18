@@ -5,7 +5,7 @@ A collection of endpoints for a tour booking application with great features.
 
 ## Live Demo
 
-[Jade Tours](https://jadetours-api.herokuapp.com/)
+[Jade Tours](https://jade-tours.herokuapp.com/)
 
 ## API Documentation
 
